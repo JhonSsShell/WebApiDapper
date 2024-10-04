@@ -41,7 +41,7 @@ namespace webApi.Controllers
             return CreatedAtAction(nameof(GetAllRolesUsers), new { userId = rolUserDto.UserId });
         }
 
-        [HttpPost("{id}")]
+        [HttpPut("{id}")]
         public async Task<ActionResult> ModifyRolUser(int id, [FromBody] RolUserDto rolUserDto)
         {
             await _rolUserRepository.ModifyRolUserAsync(id, rolUserDto);

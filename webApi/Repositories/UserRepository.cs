@@ -31,17 +31,26 @@ namespace webApi.Repositories
         {
             using (IDbConnection db = new MySqlConnection(_connectionString))
             {
-                var sql = "SELECT * FROM users;";
+                var sql = "SELECT u.*, r.name AS nameRol FROM users AS u LEFT JOIN rol_users AS rs ON u.id = rs.user_id LEFT JOIN roles AS r ON r.id = rs.rol_id;";
                 return await db.QueryAsync<User>(sql);
             }
         }
 
-        // Metodo para obtener un usuario por id
-        public async Task<User> GetUserByIdAsync(int id)
+        //// Metodo para obtener un usuario por id
+        //public async Task<User> GetUserByIdAsync(int id)
+        //{
+        //    using (IDbConnection db = new MySqlConnection(_connectionString))
+        //    {
+        //        var sql = "SELECT * FROM users WHERE Id = @Id;";
+        //        return await db.QueryFirstOrDefaultAsync<User>(sql, new { Id = id });
+        //    }
+        //}
+
+        public async Task <User> GetUserNameRolAsync(int id)
         {
             using (IDbConnection db = new MySqlConnection(_connectionString))
             {
-                var sql = "SELECT * FROM users WHERE Id = @Id;";
+                var sql = "select u.*, r.name as nameRol from users as u join rol_users as rs on u.id = rs.user_id join roles as r on r.id = rs.rol_id where u.id = @Id; ";
                 return await db.QueryFirstOrDefaultAsync<User>(sql, new { Id = id });
             }
         }

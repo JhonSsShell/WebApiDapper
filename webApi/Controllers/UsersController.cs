@@ -31,7 +31,7 @@ namespace webApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUserById(int id)
         {
-            var user = await _userRepository.GetUserByIdAsync(id);
+            var user = await _userRepository.GetUserNameRolAsync(id);
             if (user == null)
             {
                 return NotFound();
